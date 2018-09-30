@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kms.mapper.ObjTagMapper">
+  <resultMap id="BaseResultMap" type="com.kms.entity.ObjTag">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="obj_id" jdbcType="INTEGER" property="objId" />
+    <result column="obj_type" jdbcType="VARCHAR" property="objType" />
+    <result column="tag_id" jdbcType="VARCHAR" property="tagId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, obj_id, obj_type, tag_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from obj_tag
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from obj_tag
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.kms.entity.ObjTag">
+    insert into obj_tag (id, obj_id, obj_type,
+      tag_id)
+    values (#{id}, #{objId}, #{objType},
+      #{tagId})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kms.entity.ObjTag">
+    insert into obj_tag
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="objId != null">
+        obj_id,
+      </if>
+      <if test="objType != null">
+        obj_type,
+      </if>
+      <if test="tagId != null">
+        tag_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="objId != null">
+        #{objId},
+      </if>
+      <if test="objType != null">
+        #{objType},
+      </if>
+      <if test="tagId != null">
+        #{tagId},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kms.entity.ObjTag">
+    update obj_tag
+    <set>
+      <if test="objId != null">
+        obj_id = #{objId},
+      </if>
+      <if test="objType != null">
+        obj_type = #{objType},
+      </if>
+      <if test="tagId != null">
+        tag_id = #{tagId},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kms.entity.ObjTag">
+    update obj_tag
+    set obj_id = #{objId},
+      obj_type = #{objType},
+      tag_id = #{tagId}
+    where id = #{id}
+  </update>
+</mapper>

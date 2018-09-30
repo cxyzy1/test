@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kms.mapper.MachineInfoMapper">
+  <resultMap id="BaseResultMap" type="com.kms.entity.MachineInfo">
+    <id column="id" jdbcType="SMALLINT" property="id" />
+    <result column="data_center" jdbcType="SMALLINT" property="dataCenter" />
+    <result column="mac" jdbcType="VARCHAR" property="mac" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, data_center, mac, created_time
+  </sql>
+  <select id="get" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from machine_info
+    where mac = #{mac}
+  </select>
+  <insert id="add" parameterType="com.kms.entity.MachineInfo">
+    insert into machine_info (data_center, mac)
+    values (#{dataCenter}, #{mac})
+  </insert>
+</mapper>

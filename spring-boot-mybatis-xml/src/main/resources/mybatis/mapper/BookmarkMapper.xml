@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kms.mapper.BookmarkMapper">
+  <resultMap id="BaseResultMap" type="com.kms.entity.Bookmark">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="url_md5" jdbcType="VARCHAR" property="urlMd5" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="logo_url" jdbcType="VARCHAR" property="logoUrl" />
+    <result column="img_list" jdbcType="VARCHAR" property="imgList" />
+    <result column="summary" jdbcType="VARCHAR" property="summary" />
+    <result column="extension" jdbcType="VARCHAR" property="extension" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, url, url_md5, title, logo_url, img_list, summary, extension
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bookmark
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bookmark
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.kms.entity.Bookmark">
+    insert into bookmark (id, url, url_md5,
+      title, logo_url, img_list, 
+      summary, extension)
+    values (#{id}, #{url}, #{urlMd5},
+      #{title}, #{logoUrl}, #{imgList},
+      #{summary}, #{extension})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kms.entity.Bookmark">
+    insert into bookmark
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="urlMd5 != null">
+        url_md5,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="logoUrl != null">
+        logo_url,
+      </if>
+      <if test="imgList != null">
+        img_list,
+      </if>
+      <if test="summary != null">
+        summary,
+      </if>
+      <if test="extension != null">
+        extension,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="url != null">
+        #{url},
+      </if>
+      <if test="urlMd5 != null">
+        #{urlMd5},
+      </if>
+      <if test="title != null">
+        #{title},
+      </if>
+      <if test="logoUrl != null">
+        #{logoUrl},
+      </if>
+      <if test="imgList != null">
+        #{imgList},
+      </if>
+      <if test="summary != null">
+        #{summary},
+      </if>
+      <if test="extension != null">
+        #{extension},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kms.entity.Bookmark">
+    update bookmark
+    <set>
+      <if test="url != null">
+        url = #{url},
+      </if>
+      <if test="urlMd5 != null">
+        url_md5 = #{urlMd5},
+      </if>
+      <if test="title != null">
+        title = #{title},
+      </if>
+      <if test="logoUrl != null">
+        logo_url = #{logoUrl},
+      </if>
+      <if test="imgList != null">
+        img_list = #{imgList},
+      </if>
+      <if test="summary != null">
+        summary = #{summary},
+      </if>
+      <if test="extension != null">
+        extension = #{extension},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kms.entity.Bookmark">
+    update bookmark
+    set url = #{url},
+      url_md5 = #{urlMd5},
+      title = #{title},
+      logo_url = #{logoUrl},
+      img_list = #{imgList},
+      summary = #{summary},
+      extension = #{extension}
+    where id = #{id}
+  </update>
+ </mapper>

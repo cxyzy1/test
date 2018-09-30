@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kms.mapper.ExpungedObjMapper">
+  <resultMap id="BaseResultMap" type="com.kms.entity.ExpungedObj">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="create_time" jdbcType="DATE" property="createTime" />
+    <result column="expunged_objcol" jdbcType="VARCHAR" property="expungedObjcol" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, create_time, expunged_objcol
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from expunged_obj
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from expunged_obj
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.kms.entity.ExpungedObj">
+    insert into expunged_obj (id, create_time, expunged_objcol
+      )
+    values (#{id}, #{createTime}, #{expungedObjcol}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kms.entity.ExpungedObj">
+    insert into expunged_obj
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="expungedObjcol != null">
+        expunged_objcol,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="expungedObjcol != null">
+        #{expungedObjcol},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kms.entity.ExpungedObj">
+    update expunged_obj
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime},
+      </if>
+      <if test="expungedObjcol != null">
+        expunged_objcol = #{expungedObjcol},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kms.entity.ExpungedObj">
+    update expunged_obj
+    set create_time = #{createTime},
+      expunged_objcol = #{expungedObjcol}
+    where id = #{id}
+  </update>
+</mapper>

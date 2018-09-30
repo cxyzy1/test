@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kms.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.kms.entity.User">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="full_sync_before" jdbcType="BIGINT" property="fullSyncBefore" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="updated_time" jdbcType="BIGINT" property="updatedTime" />
+    <result column="created_time" jdbcType="BIGINT" property="createdTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, password, full_sync_before, name, updated_time, created_time
+  </sql>
+  <select id="list" resultMap="BaseResultMap"  >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM user
+  </select>
+  <select id="get" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from user
+    where id = #{id}
+  </delete>
+  <insert id="add" parameterType="com.kms.entity.User">
+    insert into user (id, password,
+      full_sync_before, name, updated_time, 
+      created_time)
+    values (#{id}, #{password},
+      #{fullSyncBefore}, #{name}, #{updatedTime},
+      #{createdTime})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kms.entity.User">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="fullSyncBefore != null">
+        full_sync_before,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="updatedTime != null">
+        updated_time,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="password != null">
+        #{password},
+      </if>
+      <if test="fullSyncBefore != null">
+        #{fullSyncBefore},
+      </if>
+      <if test="name != null">
+        #{name},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kms.entity.User">
+    update user
+    <set>
+      <if test="password != null">
+        password = #{password},
+      </if>
+      <if test="fullSyncBefore != null">
+        full_sync_before = #{fullSyncBefore},
+      </if>
+      <if test="name != null">
+        name = #{name},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="update" parameterType="com.kms.entity.User">
+    update user
+    set password = #{password},
+      full_sync_before = #{fullSyncBefore},
+      name = #{name},
+      updated_time = #{updatedTime},
+      created_time = #{createdTime}
+    where id = #{id}
+  </update>
+</mapper>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kms.mapper.UserBookmarkMapper">
+  <resultMap id="BaseResultMap" type="com.kms.entity.UserBookmark">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="bookmark_id" jdbcType="BIGINT" property="bookmarkId" />
+    <result column="is_private" jdbcType="TINYINT" property="isPrivate" />
+    <result column="bookmark_url" jdbcType="VARCHAR" property="bookmarkUrl" />
+    <result column="bookmark_title" jdbcType="VARCHAR" property="bookmarkTitle" />
+    <result column="tag_names" jdbcType="VARCHAR" property="tagNames" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="updated_time" jdbcType="BIGINT" property="updatedTime" />
+    <result column="created_time" jdbcType="BIGINT" property="createdTime" />
+    <result column="progress" jdbcType="SMALLINT" property="progress" />
+    <result column="progress_time" jdbcType="BIGINT" property="progressTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, bookmark_id, is_private, bookmark_url, bookmark_title, tag_names, state,
+    updated_time, created_time, progress, progress_time
+  </sql>
+  <select id="list" resultMap="BaseResultMap"  >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM user_bookmark
+  </select>
+  <select id="get" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user_bookmark
+    where id = #{id}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from user_bookmark
+    where id = #{id}
+  </delete>
+  <insert id="add" parameterType="com.kms.entity.UserBookmark">
+    insert into user_bookmark (user_id,bookmark_id,
+      is_private, bookmark_url, bookmark_title,
+      tag_names, state, progress, progress_time
+      )
+    values (#{userId},#{bookmarkId},
+      #{isPrivate}, #{bookmarkUrl}, #{bookmarkTitle},
+      #{tagNames}, #{state}, #{progress}, #{progressTime}
+      )
+  </insert>
+  <update id="update" parameterType="com.kms.entity.UserBookmark">
+    update user_bookmark
+    <set>
+      <if test="userId != null">
+        user_id = #{userId},
+      </if>
+      <if test="bookmarkId != null">
+        bookmark_id = #{bookmarkId},
+      </if>
+      <if test="isPrivate != null">
+        is_private = #{isPrivate},
+      </if>
+      <if test="bookmarkUrl != null">
+        bookmark_url = #{bookmarkUrl},
+      </if>
+      <if test="bookmarkTitle != null">
+        bookmark_title = #{bookmarkTitle},
+      </if>
+      <if test="tagNames != null">
+        tag_names = #{tagNames},
+      </if>
+      <if test="state != null">
+        state = #{state},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime},
+      </if>
+      <if test="progress != null">
+        progress = #{progress},
+      </if>
+      <if test="progressTime != null">
+        progress_time = #{progressTime},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kms.entity.UserBookmark">
+    update user_bookmark
+    set user_id = #{userId},
+      bookmark_id = #{bookmarkId},
+      is_private = #{isPrivate},
+      bookmark_url = #{bookmarkUrl},
+      bookmark_title = #{bookmarkTitle},
+      tag_names = #{tagNames},
+      state = #{state},
+      updated_time = #{updatedTime},
+      created_time = #{createdTime},
+      progress = #{progress},
+      progress_time = #{progressTime}
+    where id = #{id}
+  </update>
+</mapper>
